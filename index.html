@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Music Library</title>
+
+<style>
+
+body{
+    margin:0;
+    background:#111;
+    color:white;
+    font-family:sans-serif;
+    padding:20px;
+}
+
+.track{
+    background:#1b1b1b;
+    margin-bottom:15px;
+    padding:15px;
+    border-radius:12px;
+}
+
+.title{
+    margin-bottom:10px;
+}
+
+audio{
+    width:100%;
+}
+
+</style>
+</head>
+<body>
+
+<div id="list"></div>
+
+<script>
+
+const TOTAL = 50; // 最大曲数
+
+const list =
+document.getElementById("list");
+
+for(let i=1;i<=TOTAL;i++){
+
+    const num =
+    String(i).padStart(3,"0");
+
+    const file =
+    `music/${num}.mp3`;
+
+    const box =
+    document.createElement("div");
+
+    box.className = "track";
+
+    box.innerHTML = `
+        <div class="title">${num}</div>
+        <audio controls preload="none">
+            <source src="${file}" type="audio/mpeg">
+        </audio>
+    `;
+
+    const audio =
+    box.querySelector("audio");
+
+    audio.onerror = () => {
+        box.remove();
+    };
+
+    list.appendChild(box);
+}
+
+</script>
+
+</body>
+</html>
